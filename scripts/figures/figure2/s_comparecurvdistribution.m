@@ -48,7 +48,7 @@ for i = 1:length(feFileToLoad)
     clear fg fe Cnorm Curv   
 end
 
-% Set bing
+% Set bin
 x = [0:0.25:19.75];
 
 % Plot distributions in five connectome models
