@@ -28,7 +28,8 @@ function et_createETcandidateconnectome(feinput, numconcatenate, fname)
 % et_createETcandidateconnectome(feinput, numconcatenate, fname);
 
 % Argument checking
-if length(fginput) == length(numconcatenate)
+
+if length(feinput) == length(numconcatenate)
  error('Matrix size of feinput and numnconcatenate should be identical.');
 end
 
