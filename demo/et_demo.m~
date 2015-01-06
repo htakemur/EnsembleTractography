@@ -96,21 +96,21 @@ spc.rmse{i}   = feGet(fe,'vox rmse');
 % Here we show how to compute the cross-valdiated RMSE of the tractography
 % model in each white-matter voxel. We store this information for later use
 % and to save computer memory.
-spc{i}.rmsexv = feGetRep(fe,'vox rmse');
+spc.rmsexv{i} = feGetRep(fe,'vox rmse');
 
 %% (1.5) Extract the Rrmse. 
 % We show how to extract the ratio between the model prediction error
 % (RMSE) and the test-retest reliability of the data.
-spc{i}.rrmse  = feGetRep(fe,'vox rmse ratio');
+spc.rrmse{i}  = feGetRep(fe,'vox rmse ratio');
 
 %% (1.6) Extract the fitted weights for the fascicles. 
 % The following line shows how to extract the weight assigned to each
 % fascicle in the connectome.
-spc{i}.w      = feGet(fe,'fiber weights');
+spc.w{i}      = feGet(fe,'fiber weights');
 
 %% Extract the coordinates of the white-matter voxels
 % We will use this later to compare probabilistic and deterministic models.
-s{i}.coords = feGet(fe,'roi coords');
+s.coords{i} = feGet(fe,'roi coords');
 clear fe
 end
 
@@ -208,16 +208,45 @@ clear fe
 % - Third we find the common voxels. These allow us to find the rmse for
 % the same voxels.
 fprintf('Finding common brain coordinates between SPC 1mm and ETC connectomes...\n')
-etc.coordsIdx = ismember(e.coords,s{3}.coords,'rows');
+etc.coordsIdx = ismember(e.coords,s.coords{3},'rows');
 etc.coords    = e.coords(etc.coordsIdx,:);
-spc{3}.coordsIdx  = ismember(s{3}.coords,etc.coords,'rows');
-spc{3}.coords     = s{3}.coords(spc{3}.coordsIdx,:);
+spc.coordsIdx{3}  = ismember(s.coords{3},etc.coords,'rows');
+spc.coords{3}     = s.coords{3}(spc.coordsIdx{3},:);
 etc_rrmse_comparison      = etc.rrmse(etc.coordsIdx);
-spc_rrmse_comparison       = spc{3}.rrmse(spc{3}.coordsIdx);
-clear p d
+spc_rrmse_comparison       = spc.rrmse{3}(spc.coordsIdx{3});
 
 %% (3.2) Make a scatter plot of the Ratio of RMSE of the two tractography models
-fh(1) = scatterPlotRRMSE(spc_rrmse_comparison,etc_rrmse_comparison);
+% fh(1) = scatterPlotRRMSE(spc_rrmse_comparison,etc_rrmse_comparison);
+
+    figNameRmse =  sprintf(['Test_rmse_SCATTER']);
+    fhRmseMap = mrvNewGraphWin(figNameRmse);
+    fontSiz = 16;
+    maxsca = 1.1;
+    minsca = 0.5;
+    [ymap_pre,xx]  = hist3([spc_rrmse_comparison;etc_rrmse_comparison]',{[(minsca-1):0.025:(maxsca+1)], [(minsca-1):0.025:(maxsca+1)]});
+    [ymap_prep,x]  = hist3([spc_rrmse_comparison;etc_rrmse_comparison]',{[minsca:0.0125:maxsca], [minsca:0.0125:maxsca]});
+    
+    sizeymap = size(ymap_prep);
+    ymap = ymap_prep(2:((sizeymap(1)-1)), 2:((sizeymap(2)-1)));
+    
+
+    sh = imagesc(flipud(log10(ymap)));
+     cm = colormap(hot); view(0,90);
+    axis('square')
+
+
+ylabel('SPC1mm_{Rrmse}','fontsize',16)
+xlabel('ETC_{Rrmse}','fontsize',16)
+    cb = colorbar;
+    tck = get(cb,'ytick');
+
+    set(cb,'yTick',[min(tck)  mean(tck) max(tck)], ...
+        'yTickLabel',round(1*10.^[min(tck),...
+        mean(tck), ...
+        max(tck)])/1, ...
+        'tickdir','out','ticklen',[.025 .05],'box','on', ...
+        'fontsize',fontSiz','visible','on')
+
 
 end
 
@@ -225,30 +254,48 @@ end
 function fh = scatterPlotRRMSE(spc_rrmse_comparison,etc_rrmse_comparison)
 figNameRmse = sprintf('ETC_vs_SPC1mm_Rrmse_common_voxels_map');
 fh = mrvNewGraphWin(figNameRmse);
-[ymap,x]  = hist3([spc_rrmse_comparison;etc_rrmse_comparison]',{[0.5:0.01:1], [0.5:0.01:1]});
-ymap = ymap./length(etc_rrmse_comparison);
+maxsca = 1.1;
+minsca = 0.5;
+scabin = 0.0125;
+[ymap_prep,x]  = hist3([spc_rrmse_comparison;etc_rrmse_comparison]',{[(minsca-scabin):scabin:(maxsca+scabin)], [(minsca-scabin):scabin:(maxsca+scabin)]});
+
+% Clip the first and last row in histogram (which includes value out of the
+% range)
+ymap = ymap_prep(2:((sizeymap(1)-1)), 2:((sizeymap(2)-1)));
+
+% ymap = ymap./length(etc_rrmse_comparison);
 sh   = imagesc(flipud(log10(ymap)));
-cm   = colormap(flipud(hot)); view(0,90);
+cm   = colormap(hot); view(0,90);
 axis('square')      
+% set(gca,'ydir','reverse');
+
 set(gca, ...
-    'xlim',[1 length(x{1})],...
-    'ylim',[1 length(x{1})], ...
-    'ytick',[1 (length(x{1})/2) length(x{1})], ...
-    'xtick',[1 (length(x{1})/2) length(x{1})], ...
-    'yticklabel',[x{1}(end) x{1}(round(end/2)) x{1}(1)], ...
-    'xticklabel',[x{1}(1)   x{1}(round(end/2)) x{1}(end)], ...
+    'xlim',[1 size(ymap,1)],...
+    'ylim',[1 size(ymap,2)], ...
+    'ytick',[1 (1+ size(ymap,1))/2 size(ymap,1)], ...
+    'xtick',[1 (1+ size(ymap,2))/2 size(ymap,2)], ...
+    'yticklabel',[x{1}(end-1) x{1}(round((end+1)/2)) x{1}(2)], ...
+    'xticklabel',[x{1}(2)   x{1}(round((end+1)/2)) x{1}(end-1)], ...
     'tickdir','out','ticklen',[.025 .05],'box','off', ...
     'fontsize',16,'visible','on')
 hold on
 plot3([1 length(x{1})],[length(x{1}) 1],[max(ymap(:)) max(ymap(:))],'k-','linewidth',1)
-ylabel('Deterministic_{rmse}','fontsize',16)
-xlabel('Probabilistic_{rmse}','fontsize',16)
+ylabel('SPC1mm_{Rrmse}','fontsize',16)
+xlabel('ETC_{Rrmse}','fontsize',16)
 cb = colorbar;
-tck = get(cb,'ytick');
-set(cb,'yTick',[min(tck)  mean(tck) max(tck)], ...
-    'yTickLabel',round(1000*10.^[min(tck),...
-    mean(tck), ...
-    max(tck)])/1000, ...
-    'tickdir','out','ticklen',[.025 .05],'box','on', ...
-    'fontsize',16,'visible','on')
+    tck = get(cb,'ytick');
+
+    set(cb,'yTick',[min(tck)  mean(tck) max(tck)], ...
+        'yTickLabel',round(1*10.^[min(tck),...
+        mean(tck), ...
+        max(tck)])/1, ...
+        'tickdir','out','ticklen',[.025 .05],'box','on', ...
+        'fontsize',fontSiz','visible','on')
+
+% set(cb,'yTick',[min(tck)  mean(tck) max(tck)], ...
+%     'yTickLabel',round(1000*10.^[min(tck),...
+%     mean(tck), ...
+%     max(tck)])/1000, ...
+%     'tickdir','out','ticklen',[.025 .05],'box','on', ...
+%     'fontsize',16,'visible','on')
 end
