@@ -47,20 +47,23 @@ for i = 1:length(feinput)
 end
 
 % Create fg structure
-fg_etcrand = fgCreate;
+fg_etc = fgCreate;
 
 % Set name for connectome file to save
-fg_etcrand.name = fname;
+fg_etc.name = fname;
 
 % Concatenate connectomes
 for i = 1:length(feinput)
     if i == 1
-       fg_etcrand.fibers(1:numconcatenate(i)) = fg{1}.fibers(fgid{1}(1:numconcatenate(1)));       
+       fg_etc.fibers(1:numconcatenate(i)) = fg{1}.fibers(fgid{1}(1:numconcatenate(1)));       
     else
-       fg_etcrand.fibers(1+sum(numconcatenate(1:(i-1))):sum(numconcatenate(1:i))) = fg{i}.fibers(fgid{i}(1:numconcatenate(i)));       
+       fg_etc.fibers(1+sum(numconcatenate(1:(i-1))):sum(numconcatenate(1:i))) = fg{i}.fibers(fgid{i}(1:numconcatenate(i)));       
         
     end
 end
 
+% Transpose dimension of fiber matrix
+fg_etc.fibers = transpose(fg_etc.fibers);
+
 % Save file
-fgWrite(fg_etcrand);
+fgWrite(fg_etc);
