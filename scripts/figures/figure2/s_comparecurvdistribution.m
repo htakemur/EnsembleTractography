@@ -40,9 +40,7 @@ for i = 1:length(feFileToLoad)
     % Remove inf and nan
     Curv = Curv(~isnan(Curv));
     Curv = Curv(~isinf(Curv));
-    Curv_can = Curv_can(~isnan(Curv_can));
-    Curv_can = Curv_can(~isinf(Curv_can));
-    
+
     % Compute histogram for drawing disribution
     Lengthhist(:,i) = hist(Curv, 0:0.25:20);
     clear fg fe Cnorm Curv   
