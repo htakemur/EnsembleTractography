@@ -35,7 +35,7 @@ im = niftiRead(b0file);
 
 % Create an image of fiber density where each voxel counts the number of
 % fiber endpoints
-fd = dtiComputeFiberDensityNoGUI(fgkeep,im.qto_xyz,size(im.data),0,1,1);
+fd = dtiComputeFiberDensityNoGUI(fgkeep,im.qto_xyz,size(im.data),0,1,0);
 
 % Now build a nifti image that is coregistered to the B0 image
 fdImg = im;
