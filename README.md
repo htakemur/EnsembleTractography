@@ -2,19 +2,19 @@ EnsembleTractography
 ====================
 This repository contains the source code to perform the ensemble tractography and replicate key results from the following paper paper:
 
-Ensemble tractography. by Takemura, H., Wandell, B. A. & Pestilli, F. In preparation.
+Ensemble tractography. by Takemura, H., Wandell, B. A. & Pestilli, F. In revision.
 
 This repository is still under prepration.
 
 Required operating enviroment
 
-Matlab 2012b. The code probably runs on earlier versions, but we have not checked extensively.
+Matlab 2012b or newer version of MATLAB. The code probably runs on earlier versions, but we have not checked extensively.
 
 The code also requires three toolboxes you can download freely:
 
 1) vistasoft (Wandell Lab., Stanford) https://github.com/vistalab/vistasoft
 
-2) LIFE (Franco Pestilli, Stanford) https://github.com/francopestilli/life
+2) LiFE (Franco Pestilli, Indiana University; Cesar Caiafa, CONICET) https://github.com/francopestilli/life
 
 3) MBA (Franco Pestilli, Stanford) https://github.com/francopestilli/mba
 
@@ -24,4 +24,7 @@ All of this software must be on your path.
 
 If you use this software please cite the article above.
 
-Copyright (c) Hiromasa Takemura, Stanford VISTA Team, 2014
+** Note
+We plan to update the LiFE code for providing faster, efficient computation. Few number of scripts in this repository may have dependency on the new code which has not finally released yet. 
+
+Copyright (c) Hiromasa Takemura, Stanford VISTA Team/CiNet, 2015
