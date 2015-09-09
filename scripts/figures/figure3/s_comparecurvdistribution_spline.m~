@@ -1,4 +1,4 @@
-function [Curvhist_can Curvhist_opt] = s_comparecurvdistribution_spline(feFileToLoad, fname, bins, minimumnodenum)
+function [Lengthhist_can Lengthhist_opt] = s_comparecurvdistribution_spline(feFileToLoad, fname, bins, minimumnodenum)
 
 % This script computes the curvature distribution of fascicle(streamline) in several
 % connectome models.
@@ -25,9 +25,7 @@ function [Curvhist_can Curvhist_opt] = s_comparecurvdistribution_spline(feFileTo
 % generate the connectome with lenght threshold without volume-based
 % clipping, this threshold setting is not necessary).
 %
-% OUTPUT:
-% Curvhist_can: The curvature distribution histogram in candidate connectome
-% Curvhist_opt: The curvature distribution histogram in optimized connectome
+% 
 % 
 % Hiromasa Takemura (c) CiNet HHS/Stanford VISTA team, 2015
 
@@ -85,16 +83,11 @@ for i = 1:length(feFileToLoad)
     Curv_opt = Curv_opt(~isinf(Curv_opt));
     
     % Compute histogram for drawing disribution
-    Curvhist_can(:,i) = hist(Curv_can, 0:0.25:40);
-    Curvhist_opt(:,i) = hist(Curv_opt, 0:0.25:40);
+    Lengthhist_can(:,i) = hist(Curv_can, 0:0.25:40);
+    Lengthhist_opt(:,i) = hist(Curv_opt, 0:0.25:40);
     
     clear fg fe Curv_can Curv_opt 
 end
 
-% Save files
-if notDefined('fname'),
-    return
-else
-save(fname, 'Curvhist_can','Curvhist_opt');
-end
+save(fname, 'Lengthhist_can','Lengthhist_opt');
 

@@ -2,7 +2,7 @@ function s_visualizeILF(fgfile, t1file, figName)
 
 % Visualize ILF defined by several different tractography parameters.
 % Script used for the visualization of the ILF in Figure 1, in 
-% Takemura, H., Wandell, B. A & Pestilli, F. Ensemble Tractography.
+% Takemura, H., Caiafa, C., Wandell, B. A & Pestilli, F. Ensemble Tractography.
 %
 % This script requires MBA toolbox by Franco Pestilli
 % https://github.com/francopestilli/mba/
