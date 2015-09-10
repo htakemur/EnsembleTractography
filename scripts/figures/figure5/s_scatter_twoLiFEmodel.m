@@ -1,4 +1,4 @@
-function s_ht_clip_scatter_twoLiFEmodel(feFileToLoad)
+function s_scatter_twoLiFEmodel(feFileToLoad)
 
 % Make a scatter plot of Rrmse across two connectome models
 %

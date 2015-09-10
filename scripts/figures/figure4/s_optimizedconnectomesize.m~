@@ -20,7 +20,11 @@ for i = 1:length(feFileToLoad)
 
        % Load .mat file storing fe sturcture
        load(feFileToLoad{i});
+
+       % Get fascicle weights
        fweight = feGet(fe, 'fiber weights');
+
+       % Count the number of fascicles taking non-zero weight in LiFE model
        optconnectomesize(i) = length(find(fweight>0));
     clear fe fweight
     end
