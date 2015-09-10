@@ -2,6 +2,10 @@ function optconnectomesize = s_optimizedconnectomesize(feFileToLoad, fname)
 
 % This scripts calculates the number of fascicles supported by LiFE (optimized connectome size).
 % 
+% % The script will reproduce analysis used in the Figure 4, in 
+%
+% Takemura, H., Caiafa, C., Wandell, B.A., Pestilli, F. Ensemble Tractography (in revision)
+% 
 % INPUT: 
 % feFileToLoad: A full path to .mat file storing fe structe (defined as string)
 % fname: A .mat file name for saving optimized connectome size
