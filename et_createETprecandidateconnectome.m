@@ -1,11 +1,16 @@
-function et_createETcandidateconnectome(feinput, numconcatenate, fname)
+function et_createETprecandidateconnectome(feinput, numconcatenate, fname)
 
 % Create Ensemble Tractography candidate connectome by combining the fascicles from multiple SPC
 % optimized connectome having higher fascicle weights.
 % 
+% This procedure is called "ETCpre" in the following paper (Text S5).
+% 
 % Reference:
-% Takemura, H., Wandell, B.A. & Pestilli, F. (in prep) Ensemble
+% Takemura, H., Caiafa, C., Wandell, B.A. & Pestilli, F. (in prep) Ensemble
 % Tractography.
+% 
+% As compared with "include-them-all" model, the performance of this preselected connectome is only slightly worse.
+% For testing large-scale connectome, sometimes using preslection has benefit on computational efficiency.
 % 
 % INPUT:
 % feinput: The name (or full path) to fe structure .mat file to put into
@@ -15,7 +20,7 @@ function et_createETcandidateconnectome(feinput, numconcatenate, fname)
 %                 1 x N matrix.
 % fname: File name for output file. 
 %
-% (C) Hiromasa Takemura, Stanford VISTA Lab
+% (C) Hiromasa Takemura, 2015 CiNet HHS/Stanford VISTA Lab
 % 
 %
 % EXAMPLE:

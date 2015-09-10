@@ -1,7 +1,10 @@
-function s_run_LiFE_withinWMMask(fg,feSaveName, testVol, saveDir, maxVolDist, diffusionModelParams)
+function s_run_LiFE_matrixbased(fg,feSaveName, testVol, saveDir, maxVolDist, diffusionModelParams)
 %
 % Preprocess a connectome (fg) to be constrained within a
 % region of interest and within the cortex.
+% 
+% This version of scripts use the initial release of LiFE (Pestilli et al., 2014 Nat Methods).
+% We plan to release the faster code using vector decomposition in a future release. 
 %
 % INPUT:
 % fg: fg structure of candidate connectome
@@ -61,7 +64,7 @@ if ~(exist(fullfile(feSaveDir,[feSaveName,feSaveName,'.mat']),'file') == 2) || c
     %% Fit the model with global weights.
     M = feGet(fe,'Mfiber');
     dsig = feGet(fe,'dsig demeaned');
-    fefit  = feFitModel_Nov1(M,dsig,'bbnnls');
+    fefit  = feFitModel(M,dsig,'bbnnls');
     
     fe    = feSet(fe,'fit',fefit);
     feConnectomeSave(fe,feSaveName)

@@ -3,7 +3,7 @@ function et_writefascicledensity(feFileToLoad, fname, b0file)
 % Load fe file and the export the file including fascicle density per
 % voxel.
 % Reference:
-% Takemura, H., Wandell, B.A. & Pestilli, F. (in prep) Ensemble
+% Takemura, H., Caiafa, C., Wandell, B.A. & Pestilli, F. (in revision) Ensemble
 % Tractography.
 %
 % INPUT:
