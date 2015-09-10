@@ -2,7 +2,7 @@ EnsembleTractography
 ====================
 This repository contains the source code to perform the ensemble tractography and replicate key results from the following paper paper:
 
-Ensemble tractography. by Takemura, H., Wandell, B. A. & Pestilli, F. In revision.
+Ensemble tractography. by Takemura, H., Caiafa, C., Wandell, B. A. & Pestilli, F. In revision.
 
 This repository is still under prepration.
 
@@ -21,6 +21,8 @@ The code also requires three toolboxes you can download freely:
 4) AFQ (Jason D. Yeatman, Stanford) https://github.com/jyeatman/AFQ
 
 All of this software must be on your path.
+
+The part of the code will have dependency on curve fitting toolbox for computing fascicle curvature.
 
 If you use this software please cite the article above.
 
