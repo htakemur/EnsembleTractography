@@ -8,6 +8,7 @@ function s_run_LiFE_multiway(fgFileName, feFileName)
 % fgFileName: fg file storing connectome to test
 % feFileName: filename to store fe structure of the optimized connectome
 % 
+% (C) Hiromasa Takemura, CiNet HHS/Stanford VISTA Lab, 2015
 
 % Set path to DWI data 
 dataRootPath  = fullfile('/EnsembleTractography_opendata','data','STN96','S1','S1_STN96_data');
