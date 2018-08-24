@@ -1,10 +1,8 @@
 EnsembleTractography
 ====================
-This repository contains the source code to perform the ensemble tractography and replicate key results from the following paper paper:
+This repository contains the source code to perform the ensemble tractography and replicate key results from the following paper:
 
-Ensemble tractography. by Takemura, H., Caiafa, C., Wandell, B. A. & Pestilli, F. In revision.
-
-This repository is still under prepration.
+Ensemble tractography. by Takemura, H., Caiafa, C., Wandell, B. A. & Pestilli, F. PLoS Computational Bilogy, 12(2): e1004692. https://doi.org/10.1371/journal.pcbi.1004692
 
 Required operating enviroment
 
