@@ -24,7 +24,4 @@ The part of the code will have dependency on curve fitting toolbox for computing
 
 If you use this software please cite the article above.
 
-** Note
-We plan to update the LiFE code for providing faster, efficient computation. Few number of scripts in this repository may have dependency on the new code which has not finally released yet. 
-
 Copyright (c) Hiromasa Takemura, Stanford VISTA Team/CiNet, 2015
